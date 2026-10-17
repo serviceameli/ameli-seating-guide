@@ -1,2 +1,9 @@
-# ameli-seating-guide
-Гайд Ameli Rental: схемы рассадки с размерами и столами Wolf
+# Ameli Rental · Гайд по рассадке
+
+Статическая страница с реальными ссылками в каталог. Новый пример: 7 столов Wolf 240 × 100 × 75 см, два ряда и отдельный президиум, 52 показанных места.
+
+Сайт: https://serviceameli.github.io/ameli-seating-guide/#rectangular
+
+Размеры и места рассчитаны в source/rectangular-layout.json. Полный расчёт и генератор схемы: source/build_rectangular.py. 3D и фото иллюстративные. Проходы снаружи и отодвигание стульев в габарит не включены.
+
+Открыть index.html через любой локальный HTTP сервер. Зависимости сборки схем: Pillow и Shapely.
