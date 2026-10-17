@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1];DATA=json.loads((ROOT/"source/multi-rou
 A=ROOT/"assets";INK="#303330";MUTED="#666862";LINE="#c9cbc4";BG="#f5f5f0"
 def font(size,weight=400):return ImageFont.truetype(str(A/("Montserrat-Medium.ttf"if weight==500 else"Montserrat-Regular.ttf")),size)
 def tx(d,x,y,s,size=25,weight=400,color=INK):d.text((x,y),s,font=font(size,weight),fill=color)
-def pt(x,y,t,w=45,dep=47):
+def pt(x,y,t,w=43,dep=47):
     u=(math.cos(t),math.sin(t));v=(-u[1],u[0])
     return [(x+a*v[0]+b*u[0],y+a*v[1]+b*u[1])for a,b in [(-w/2,-dep/2),(w/2,-dep/2),(w/2,dep/2),(-w/2,dep/2)]]
 def ceil_m(n):return math.ceil(n/10-1e-7)/10

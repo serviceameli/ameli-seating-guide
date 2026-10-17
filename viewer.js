@@ -2,7 +2,7 @@
 const NS="http://www.w3.org/2000/svg";const chairs=document.querySelector("#chairs"),plates=document.querySelector("#plates");
 for(let i=0;i<8;i++){let deg=i*45+22.5,a=deg*Math.PI/180,x=-123.5*Math.sin(a),y=123.5*Math.cos(a);
 let g=document.createElementNS(NS,"g");g.setAttribute("transform",`translate(${x} ${y}) rotate(${deg})`);
-let seat=document.createElementNS(NS,"rect");Object.entries({x:-22.5,y:-23.5,width:45,height:47,rx:8,fill:"#e7dfcf",stroke:"#98866a","stroke-width":.5}).forEach(([k,v])=>seat.setAttribute(k,v));g.append(seat);
+let seat=document.createElementNS(NS,"rect");Object.entries({x:-21.5,y:-23.5,width:43,height:47,rx:8,fill:"#e7dfcf",stroke:"#98866a","stroke-width":.5}).forEach(([k,v])=>seat.setAttribute(k,v));g.append(seat);
 let b=document.createElementNS(NS,"rect");Object.entries({x:-19,y:17,width:38,height:3,rx:1,fill:"#a69269"}).forEach(([k,v])=>b.setAttribute(k,v));g.append(b);chairs.append(g);
 let p=document.createElementNS(NS,"circle");Object.entries({cx:-67*Math.sin(a),cy:67*Math.cos(a),r:13,fill:"none",stroke:"#b7b7af","stroke-width":.5}).forEach(([k,v])=>p.setAttribute(k,v));plates.append(p);}
 let active="plan";function select(name){active=name;document.querySelectorAll("[data-tab]").forEach(b=>{const on=b.dataset.tab===name;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1;document.querySelector("#view-"+b.dataset.tab).hidden=!on;});if(name==="model")requestAnimationFrame(resize);}

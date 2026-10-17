@@ -9,8 +9,8 @@ tables=[dict(x=x,y=y,w=100,d=240) for x in [-200,200] for y in [0,240,480]]+[dic
 chairs=[]
 for t in tables[:6]:
     for sign in [-1,1]:
-        for dy in [-90,-30,30,90]: chairs.append(dict(x=t['x']+sign*83.5,y=t['y']+dy,w=47,d=45,side=sign))
-for x in [-90,-30,30,90]: chairs.append(dict(x=x,y=-423.5,w=45,d=47,side=0))
+        for dy in [-90,-30,30,90]: chairs.append(dict(x=t['x']+sign*83.5,y=t['y']+dy,w=47,d=43,side=sign))
+for x in [-90,-30,30,90]: chairs.append(dict(x=x,y=-423.5,w=43,d=47,side=0))
 assert len(tables)==7 and len(chairs)==52
 def bounds(item):return box(item['x']-item['w']/2,item['y']-item['d']/2,item['x']+item['w']/2,item['y']+item['d']/2)
 tp=list(map(bounds,tables));cp=list(map(bounds,chairs))
@@ -66,8 +66,8 @@ objects=list(clothed)
 for c in chairs:
     x=c['x']/100;y=c['y']/100;w=c['w']/100;dep=c['d']/100
     objects.append(cube(x,y,.46,w,dep,.07,'velvet'))
-    if c['side']:objects.append(cube(x+c['side']*.20,y,.72,.05,.45,.26,'velvet'))
-    else:objects.append(cube(x,y-.20,.72,.45,.05,.26,'velvet'))
+    if c['side']:objects.append(cube(x+c['side']*.20,y,.72,.05,.43,.26,'velvet'))
+    else:objects.append(cube(x,y-.20,.72,.43,.05,.26,'velvet'))
     for a in [-1,1]:
         for b in [-1,1]:objects.append(rod([x+a*(w/2-.04),y+b*(dep/2-.04),0],[x+a*(w/2-.04),y+b*(dep/2-.04),.45],.012,'gold'))
 import struct

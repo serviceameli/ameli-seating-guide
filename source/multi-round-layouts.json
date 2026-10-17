@@ -8,10 +8,11 @@
   },
   "chair": {
     "model": "Марсель золотой, кокосовый раф",
-    "width": 45,
+    "width": 43,
     "depth": 47,
     "height": 85,
-    "url": "https://catalog.ameli-rental.ru/catalog/stulja-marsel-zaq/11162"
+    "url": "https://catalog.ameli-rental.ru/catalog/stulja-marsel-zaq/11162",
+    "widthSource": "Ameli correction, 2026-10-17"
   },
   "cloth": {
     "model": "Альфа снежная круглая",
@@ -22,7 +23,7 @@
   "assumptions": {
     "tableCenterDistance": 180,
     "chairFrontGap": 10,
-    "sideAllowanceTotal": 15,
+    "sideAllowanceTotal": 17,
     "chairEnvelopeWidth": 60,
     "minEnvelopeClearance": 2,
     "aisles": "not included",
@@ -189,10 +190,10 @@
       ],
       "seats": 20,
       "bounds": [
-        -145.2996015598579,
-        -145.29960155985793,
-        685.2996015598579,
-        145.29960155985793
+        -144.9412336103126,
+        -144.94123361031262,
+        684.9412336103127,
+        144.94123361031262
       ],
       "tableBounds": [
         -90.0,
@@ -201,8 +202,8 @@
         90.0
       ],
       "furnitureMeters": [
-        8.4,
-        3.0
+        8.3,
+        2.9
       ],
       "tableMeters": [
         7.2,
@@ -426,10 +427,10 @@
       ],
       "seats": 28,
       "bounds": [
-        -145.2996015598579,
-        -145.29960155985793,
-        924.7224649658527,
-        235.29960155985788
+        -144.9412336103126,
+        -144.94123361031262,
+        924.3640970163075,
+        234.94123361031262
       ],
       "tableBounds": [
         -90.0,
@@ -438,8 +439,8 @@
         180.0
       ],
       "furnitureMeters": [
-        10.8,
-        3.9
+        10.7,
+        3.8
       ],
       "tableMeters": [
         9.6,
@@ -808,10 +809,10 @@
       ],
       "seats": 48,
       "bounds": [
-        -436.54571953483895,
-        -422.2911199056307,
-        1019.0379554848012,
-        422.2911199056307
+        -436.18735158529364,
+        -421.9327519560854,
+        1018.6795875352559,
+        421.9327519560854
       ],
       "tableBounds": [
         -381.2461179749811,

@@ -10,7 +10,7 @@ def text(d,xy,t,size=26,fill=ink,medium=False):d.text(xy,t,font=font(size,medium
 def dash(d,a,b,fill=line,width=2,step=16):
     dx,dy=b[0]-a[0],b[1]-a[1];length=math.hypot(dx,dy)
     for t in range(0,int(length),step):d.line((a[0]+dx*t/length,a[1]+dy*t/length,a[0]+dx*min(t+step*.5,length)/length,a[1]+dy*min(t+step*.5,length)/length),fill=fill,width=width)
-def chair2d(d,cx,cy,a,w=45,dep=47,scale=3.3):
+def chair2d(d,cx,cy,a,w=43,dep=47,scale=3.3):
     ca,sa=math.cos(a),math.sin(a)
     def p(x,y):return (cx+scale*(x*ca-y*sa),cy+scale*(x*sa+y*ca))
     pts=[p(-w/2,-dep/2),p(w/2,-dep/2),p(w/2,dep/2),p(-w/2,dep/2)]
@@ -43,7 +43,7 @@ def plan(n=8):
     text(d,(cx-110,cy-48),"Ø180 см",38,medium=True);text(d,(cx-94,cy+8),"высота 75 см",22,muted)
     lx=1240
     text(d,(lx,368),f"{n:02d}",116,medium=True);text(d,(lx,505),"мест в этой схеме",25,muted)
-    for y,title,value in [(606,"Дуга столешницы на гостя",f"{180*math.pi/n:.1f}".replace(".",",")+" см"),(754,"Стул «Марсель»","45 × 47 см"),(902,"Габарит мебели","около 3 × 3 м")]:
+    for y,title,value in [(606,"Дуга столешницы на гостя",f"{180*math.pi/n:.1f}".replace(".",",")+" см"),(754,"Стул «Марсель»","43 × 47 см"),(902,"Габарит мебели","около 3 × 3 м")]:
         d.line((lx,y-22,1728,y-22),fill=line,width=2);text(d,(lx,y),title,23,muted);text(d,(lx,y+45),value,36,medium=True)
     text(d,(lx,1055),"Скатерть «Альфа»",23,muted)
     text(d,(lx,1098),"Ø330 см · свес 75 см",29,medium=True)
@@ -109,14 +109,14 @@ def scene(n=8,wash=False):
     objs.append({'v':rings,'f':faces,'m':'cloth'})
     for i in range(n):
         a=2*math.pi*i/n+math.pi/8;ca,sa=math.cos(a),math.sin(a);px=-1.235*sa;py=1.235*ca
-        parts=[cylinder(.225,.43,.49,32,xy=(0,-.01),mat="velvet")]
+        parts=[cylinder(.215,.43,.49,32,xy=(0,-.01),mat="velvet")]
         for xx in [-.18,.18]:
             for yy in [-.18,.18]:
                 height=.69 if yy>0 else .455
                 parts.append(rod([xx,yy,.012],[xx,yy,height],.012))
                 parts.append(cylinder(.013,0,.018,8,xy=(xx,yy),mat="feet"))
             parts.append(rod([xx,-.18,.435],[xx,.18,.435],.01))
-        parts.append(back(.36 if wash else .45,.45 if wash else .26,.695 if wash else .72,not wash))
+        parts.append(back(.36 if wash else .43,.45 if wash else .26,.695 if wash else .72,not wash))
         for part in parts:
             part["v"]=[[px+v[0]*ca-v[1]*sa,py+v[0]*sa+v[1]*ca,v[2]]for v in part["v"]];objs.append(part)
     return objs
@@ -136,7 +136,7 @@ def export_gltf(objs):
             for i in range(1,len(f)-1):ids.extend([f[0],f[i],f[i+1]])
         pa=buffer(pos,"f",5126,len(pos)//3,"VEC3",True);ia=buffer(ids,"I",5125,len(ids),"SCALAR")
         meshes.append({"primitives":[{"attributes":{"POSITION":pa},"indices":ia,"material":matnames.index(o["m"])}]});nodes.append({"mesh":len(meshes)-1})
-    data=b"".join(chunks);doc={"asset":{"version":"2.0","generator":"Ameli Rental guide prototype"},"scene":0,"scenes":[{"nodes":list(range(len(nodes)))}],"nodes":nodes,"meshes":meshes,"accessors":access,"bufferViews":views,"buffers":[{"byteLength":len(data)}],"materials":[{"name":k,"doubleSided":True,"pbrMetallicRoughness":{"baseColorFactor":v,"metallicFactor":.55 if k=="gold" else 0,"roughnessFactor":.5 if k=="gold" else .85}}for k,v in materials.items()],"extras":{"units":"metres","status":"Approximate visual geometry, no hidden construction verified","tableDiameter":1.8,"tableHeight":.75,"chairOverallWidth":.45,"chairOverallDepth":.47,"chairOverallHeight":.85,"chairs":8}}
+    data=b"".join(chunks);doc={"asset":{"version":"2.0","generator":"Ameli Rental guide prototype"},"scene":0,"scenes":[{"nodes":list(range(len(nodes)))}],"nodes":nodes,"meshes":meshes,"accessors":access,"bufferViews":views,"buffers":[{"byteLength":len(data)}],"materials":[{"name":k,"doubleSided":True,"pbrMetallicRoughness":{"baseColorFactor":v,"metallicFactor":.55 if k=="gold" else 0,"roughnessFactor":.5 if k=="gold" else .85}}for k,v in materials.items()],"extras":{"units":"metres","status":"Approximate visual geometry, no hidden construction verified","tableDiameter":1.8,"tableHeight":.75,"chairOverallWidth":.43,"chairOverallDepth":.47,"chairOverallHeight":.85,"chairs":8}}
     js=json.dumps(doc,separators=(",",":")).encode();js+=b" "*((4-len(js)%4)%4)
     total=12+8+len(js)+8+len(data)
     (O/"wolf180-marseille8.glb").write_bytes(struct.pack("<III",0x46546C67,2,total)+struct.pack("<II",len(js),0x4E4F534A)+js+struct.pack("<II",len(data),0x004E4942)+data)

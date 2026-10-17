@@ -18,14 +18,14 @@ layouts=[
  dict(id="round-wave-6",number="03",title="Волна из шести столов",subtitle="Извилистая цепочка по примерам со слайда 7",centers=chain([30,-30,30,-30,30]),source="Слайд 7, оба фотопримера",note=["Круги образуют мягкую извилистую линию.","Стулья стоят по доступным дугам.","В стыках посадки нет."]),
  dict(id="round-s-11",number="04",title="S-композиция из 11 столов",subtitle="Два изгиба из круглых «Вольф» Ø180",centers=s_curve(),source="S-образная композиция, слайд 8; масштабированная адаптация",note=["По мотивам S-композиции из презентации.","Посадка с внешней и внутренней сторон.","Форма адаптирована под 11 наших столов."])
 ]
-def chair_poly(x,y,t,width=45,depth=47):
+def chair_poly(x,y,t,width=43,depth=47):
     # radial outward direction (cos t,sin t); cross direction perpendicular.
     u=(math.cos(t),math.sin(t));v=(-u[1],u[0])
     return Polygon([(x+a*v[0]+b*u[0],y+a*v[1]+b*u[1])for a,b in [(-width/2,-depth/2),(width/2,-depth/2),(width/2,depth/2),(-width/2,depth/2)]])
 for layout in layouts:
     centers=layout["centers"];tables=[Point(x,y).buffer(90,quad_segs=96)for x,y in centers]
     # Preserve an eight-position angular rhythm, choose phase per table.
-    # Width60 includes 15cm total side allowance beyond the actual45cm chair footprint.
+    # Width60 includes 17cm total side allowance beyond the actual43cm chair footprint.
     chosen=[];counts=[];candidates=[]
     for i,(cx,cy)in enumerate(centers):
         options=[]
@@ -64,6 +64,6 @@ for layout in layouts:
     tb=[min(x-90 for x,y in centers),min(y-90 for x,y in centers),max(x+90 for x,y in centers),max(y+90 for x,y in centers)]
     layout.update(chairs=[{k:v for k,v in c.items()if k not in ["polygon","envelope"]}for c in chosen],counts=counts,seats=len(chosen),bounds=bounds,tableBounds=tb)
     print(layout["id"],"tables",len(centers),"seats",len(chosen),"by table",counts,"furniture",round((bounds[2]-bounds[0])/100,2),round((bounds[3]-bounds[1])/100,2))
-data={"units":"cm","table":{"model":"Вольф круглый белый180","diameter":180,"height":75,"url":"https://catalog.ameli-rental.ru/catalog/banketnye-stoly-vfa-zoq-mlk-swm/3071"},"chair":{"model":"Марсель золотой, кокосовый раф","width":45,"depth":47,"height":85,"url":"https://catalog.ameli-rental.ru/catalog/stulja-marsel-zaq/11162"},"cloth":{"model":"Альфа снежная круглая","diameter":330,"drop":75,"url":"https://catalog.ameli-rental.ru/catalog/kruglye-skaterti-azl-nmg-ear/6449"},"assumptions":{"tableCenterDistance":180,"chairFrontGap":10,"sideAllowanceTotal":15,"chairEnvelopeWidth":60,"minEnvelopeClearance":2,"aisles":"not included","capacity":"count of drawn places, not certified maximum; no people-body comfort validation","junctions":"round tables touch at one point, not a continuous flat edge; each has its own cloth"},"layouts":layouts}
+data={"units":"cm","table":{"model":"Вольф круглый белый180","diameter":180,"height":75,"url":"https://catalog.ameli-rental.ru/catalog/banketnye-stoly-vfa-zoq-mlk-swm/3071"},"chair":{"model":"Марсель золотой, кокосовый раф","width":43,"widthSource":"Ameli correction 2026-10-17","depth":47,"height":85,"url":"https://catalog.ameli-rental.ru/catalog/stulja-marsel-zaq/11162"},"cloth":{"model":"Альфа снежная круглая","diameter":330,"drop":75,"url":"https://catalog.ameli-rental.ru/catalog/kruglye-skaterti-azl-nmg-ear/6449"},"assumptions":{"tableCenterDistance":180,"chairFrontGap":10,"sideAllowanceTotal":17,"chairEnvelopeWidth":60,"minEnvelopeClearance":2,"aisles":"not included","capacity":"count of drawn places, not certified maximum; no people-body comfort validation","junctions":"round tables touch at one point, not a continuous flat edge; each has its own cloth"},"layouts":layouts}
 (ROOT/"source/multi-round-layouts.json").write_text(json.dumps(data,ensure_ascii=False,indent=2))
 
