@@ -16,7 +16,7 @@ def bounds(item):return box(item['x']-item['w']/2,item['y']-item['d']/2,item['x'
 tp=list(map(bounds,tables));cp=list(map(bounds,chairs))
 assert all(a.intersection(b).area<1e-6 for a in cp for b in tp)
 assert all(a.intersection(b).area<1e-6 for i,a in enumerate(cp) for b in cp[i+1:])
-layout=dict(id='rect-parallel-7',title='Два ряда и отдельный президиум',tables=tables,chairs=chairs,seats=52,tableSizeCm=[240,100,75],tableMeters=[5,9.9],furnitureMeters=[6.2,10.6],centralClearanceMeters=1.86,headTableGapMeters=1.7,seatPitchCm=60,sourceSlide=10,notes=['6 гостевых столов, по 3 в каждом ряду. Один отдельный стол президиума.','48 гостевых мест вдоль длинных сторон + 4 места в президиуме.','Торцы гостевых рядов свободны. Проход между спинками центральных стульев 1,86 м.','Это адаптация принципа из презентации под реальные размеры Wolf 240, не точная копия фото.','Габарит мебели не включает внешние проходы и отодвигание стульев.'])
+layout=dict(id='rect-parallel-7',title='Два ряда и отдельный президиум',tables=tables,chairs=chairs,seats=52,tableSizeCm=[240,100,75],tableMeters=[5,9.9],furnitureMeters=[6.2,10.5],centralClearanceMeters=1.86,headTableGapMeters=1.7,seatPitchCm=60,sourceSlide=10,notes=['6 гостевых столов, по 3 в каждом ряду. Один отдельный стол президиума.','48 гостевых мест вдоль длинных сторон + 4 места в президиуме.','Торцы гостевых рядов свободны. Проход между спинками центральных стульев 1,86 м.','Это адаптация принципа из презентации под реальные размеры Wolf 240, не точная копия фото.','Габарит мебели не включает внешние проходы и отодвигание стульев.'])
 (ROOT/'source/rectangular-layout.json').write_text(json.dumps(layout,ensure_ascii=False,indent=2))
 ink='#303330'; muted='#666862'
 svg=['<svg xmlns="http://www.w3.org/2000/svg" viewBox="-350 -500 700 1180" role="img" aria-label="7 прямоугольных столов, 52 места"><rect x="-350" y="-500" width="700" height="1180" fill="#f5f5f0"/>']
@@ -24,7 +24,7 @@ for c in chairs:
     svg.append(f'<rect x="{c["x"]-c["w"]/2}" y="{c["y"]-c["d"]/2}" width="{c["w"]}" height="{c["d"]}" rx="5" fill="#e7dfcf" stroke="#99896b"/>')
 for i,t in enumerate(tables):
     svg.append(f'<rect x="{t["x"]-t["w"]/2}" y="{t["y"]-t["d"]/2}" width="{t["w"]}" height="{t["d"]}" fill="#fff" stroke="{ink}" stroke-width="1.5"/><text x="{t["x"]}" y="{t["y"]}" text-anchor="middle" font-family="Arial" font-size="19" fill="{ink}">Т{i+1}</text>')
-svg.append('<g font-family="Arial" font-size="17" fill="#666862" text-anchor="middle"><text x="0" y="140">1,86 м</text><text x="0" y="168">между спинками</text><text x="0" y="650">≈ 6,2 × 10,6 м со стульями</text></g></svg>')
+svg.append('<g font-family="Arial" font-size="17" fill="#666862" text-anchor="middle"><text x="0" y="140">1,86 м</text><text x="0" y="168">между спинками</text><text x="0" y="650">≈ 6,2 × 10,5 м со стульями</text></g></svg>')
 (O/'rect-parallel-7.svg').write_text(''.join(svg))
 def ft(n,medium=False):return ImageFont.truetype(str(A/('Montserrat-Medium.ttf' if medium else 'Montserrat-Regular.ttf')),n)
 im=Image.new('RGB',(2200,1800),'white');d=ImageDraw.Draw(im)
@@ -40,9 +40,9 @@ for c in chairs:rect(c,'#e7dfcf','#99896b')
 for i,t in enumerate(tables):
     rect(t,'#f7f7f3',ink);tx(ox+t['x']*s-20,oy+t['y']*s-18,'Т'+str(i+1),23,bold=True)
 tx(390,1575,'≈ 6,2 м со стульями',27);d.line((ox-307*s,1545,ox+307*s,1545),fill=ink,width=2)
-tx(110,760,'≈ 10,6 м',26);tx(110,800,'со стульями',20,muted)
+tx(110,760,'≈ 10,5 м',26);tx(110,800,'со стульями',20,muted)
 tx(ox-48,oy+130*s,'1,86 м',23);tx(ox-90,oy+165*s,'между спинками',18,muted)
-for i,(k,v) in enumerate([('Места в гостевых рядах','48'),('Места в президиуме','4'),('Столы «Вольф» 240','7 шт.'),('Стулья «Марсель»','52 шт.'),('Только столы','5,0 × 9,9 м'),('Вся мебель','≈ 6,2 × 10,6 м'),('Шаг посадки','60 см')]):
+for i,(k,v) in enumerate([('Места в гостевых рядах','48'),('Места в президиуме','4'),('Столы «Вольф» 240','7 шт.'),('Стулья «Марсель»','52 шт.'),('Только столы','5,0 × 9,9 м'),('Вся мебель','≈ 6,2 × 10,5 м'),('Шаг посадки','60 см')]):
     y=335+i*156;tx(1390,y,k,25,muted);tx(1390,y+45,v,44,bold=True);d.line((1390,y+120,2124,y+120),fill='#d8dad3',width=2)
 tx(1390,1450,'На торцах рядов посадки нет.',23,muted);tx(1390,1490,'Внешние проходы добавляются',23,muted);tx(1390,1530,'по плану конкретной площадки.',23,muted)
 d.line((76,1650,2124,1650),fill='#c9cbc4',width=2)
